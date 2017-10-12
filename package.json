@@ -1,0 +1,44 @@
+{
+  "name": "strangway-frontend",
+  "version": "0.0.1",
+  "description": "Strangway front-end developed using React and GraphQL.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=dev webpack-dev-server --progress",
+    "clean": "rimraf dist",
+    "build": "npm run clean && webpack --progress --colors",
+    "build:pro": "npm run clean && NODE_ENV=production webpack -p"
+  },
+  "keywords": [
+    "strangway"
+  ],
+  "author": "Adam Sommer",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.7",
+    "extract-text-webpack-plugin": "^3.0.1",
+    "file-loader": "^1.1.5",
+    "html-webpack-plugin": "^2.30.1",
+    "image-webpack-loader": "^3.4.2",
+    "node-loader": "^0.6.0",
+    "node-sass": "^4.5.3",
+    "rimraf": "^2.6.2",
+    "style-loader": "^0.19.0",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.7.1",
+    "webpack-dev-server": "^2.9.1"
+  },
+  "dependencies": {
+    "foundation-sites": "^6.4.4-rc1",
+    "markdown-it": "^8.4.0",
+    "markdown-it-task-lists": "git+ssh://git@github.com/asommer70/markdown-it-task-lists.git#label-after",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
+  }
+}
