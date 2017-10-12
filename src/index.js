@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import MainScss from './scss/main.scss';
+
 const App = () => {
   return (
-    <div>
-      Strangway... and things from React...
-      <br/>
-      Now for some fun...
+    <div className="row">
+      <div className="columns small-12">
+        <br/><br/>
+        Strangway... and things from React...
+        <br/>
+        <p>Other stuff...</p>
+      </div>
     </div>
   )
 }
