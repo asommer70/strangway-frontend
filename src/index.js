@@ -3,7 +3,11 @@ import ReactDOM from 'react-dom';
 
 const App = () => {
   return (
-    <div>Strangway... and things from React...</div>
+    <div>
+      Strangway... and things from React...
+      <br/>
+      Now for some fun...
+    </div>
   )
 }
 
