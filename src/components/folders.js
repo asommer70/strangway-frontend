@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { createFragmentContainer, graphql } from 'react-relay';
 
-export default class Folders extends Component {
+class Folders extends Component {
 	renderFolders() {
 		return this.props.folders.map((folder, idx) => {
 			return <li key={idx} className="folder-name" onClick={() => this.props.selectFolder(idx)}>{folder.name}</li>
@@ -18,3 +19,10 @@ export default class Folders extends Component {
 		);
 	}
 }
+
+export default createFragmentContainer(Folders, graphql`
+	fragment Folders_folders on Folders {
+		id
+		name
+	}
+`)

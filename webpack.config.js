@@ -11,15 +11,10 @@ const cssFilename = 'css/main.css';
 const distPath = 'dist';
 
 module.exports = {
-  // entry: './src/index.js',
   entry: {
     bundle: './src/index.js',
     vendor: VENDOR_LIBS
   },
-  // output: {
-  //   path: '/',
-  //   filename: './dist/bundle.js'
-  // },
   output: {
     path: path.resolve(__dirname, distPath),
     filename: '[name].[chunkhash].js',
@@ -31,25 +26,10 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/
       },
-      // {
-      //   use: ['style-loader', 'css-loader'],
-      //   test: /\.css$/
-      // },
-      // {
-      //   test: /\.scss$/,
-      //   use: [{loader: "style-loader"}, {loader: "css-loader"}, {loader: "sass-loader"}]
-      // },
-      // {
-      //   test: /\.css$/,
-      //   loader: ExtractTextPlugin.extract({
-      //     loader: 'sass-loader'
-      //   })
-      // },
       {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          //resolve-url-loader may be chained before sass-loader if necessary
           use: ['css-loader', 'sass-loader']
         })
       }

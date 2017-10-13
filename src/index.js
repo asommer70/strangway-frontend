@@ -34,7 +34,7 @@ class App extends Component {
 
             <div className="row">
               <div className="columns small-1">
-                <Folders folders={this.state.folders} selectFolder={this.selectFolder.bind(this)} />
+                <Folders />
               </div>
 
               <div className="columns small-10">
