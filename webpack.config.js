@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 const VENDOR_LIBS = [
-  'react', 'react-dom'
+  'react', 'react-dom', 'apollo-client', 'react-apollo'
 ]
 
 const cssFilename = 'css/main.css';
