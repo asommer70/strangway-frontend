@@ -36,12 +36,16 @@
     "webpack-dev-server": "^2.9.1"
   },
   "dependencies": {
-    "apollo-client": "^1.9.3",
+    "apollo-cache-inmemory": "^1.0.0",
+    "apollo-client": "^2.0.1",
+    "apollo-link-http": "^1.1.0",
     "foundation-sites": "^6.4.4-rc1",
+    "graphql": "^0.11.7",
+    "graphql-tag": "^2.5.0",
     "markdown-it": "^8.4.0",
     "markdown-it-task-lists": "git+ssh://git@github.com/asommer70/markdown-it-task-lists.git#label-after",
     "react": "^16.0.0",
-    "react-apollo": "^1.4.16",
+    "react-apollo": "^2.0.0",
     "react-dom": "^16.0.0"
   }
 }
