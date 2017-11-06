@@ -3,20 +3,11 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import Menu from './menu';
 import Folders from './folders';
+import Notes from './notes';
 
 class Main extends Component {
   constructor(props) {
     super(props);
-
-    const exampleFolders = [
-      {id: 2, name: 'Ideers'},
-      {id: 1, name: 'Mains'}
-    ];
-
-    // this.state = {
-    //   folders: props.data.folders,
-    //   selectedFolder: props.data.folders[0]
-    // }
   }
 
   componentWillReceiveProps(props) {
@@ -34,7 +25,7 @@ class Main extends Component {
     if (this.props.data.loading) {
       return <div>Loading Folders...</div>;
     }
-    
+
     return (
       <div className="row">
         <div className="columns small-12">
@@ -48,7 +39,7 @@ class Main extends Component {
 
             <div className="columns small-10">
               <strong>{this.state.selectedFolder.name}</strong>
-                <p>Going to be the grid of notes in the folder...</p>
+              <Notes folder={this.selectedFolder} />
             </div>
           </div>
         </div>
