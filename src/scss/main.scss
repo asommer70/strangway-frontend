@@ -1,3 +1,19 @@
 @import '../../node_modules/foundation-sites/scss/foundation';
 @import 'settings';
 @import 'includes';
+
+.folder-name {
+  cursor: pointer;
+}
+
+.notes-list {
+  margin-top: 20px;
+}
+
+.note-card {
+  width: 150px;
+}
+
+.note-title {
+  cursor: pointer;
+}

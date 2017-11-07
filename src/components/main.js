@@ -11,7 +11,6 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log('Main componentWillReceiveProps props:', props);
     this.setState({
       folders: props.data.folders,
       selectedFolder: props.data.folders[0]
