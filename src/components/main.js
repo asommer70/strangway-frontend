@@ -4,10 +4,16 @@ import { graphql } from 'react-apollo';
 import Menu from './menu';
 import Folders from './folders';
 import Notes from './notes';
+import Note from './note';
+import CreateNote from '../queries/create_note';
 
 class Main extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      newNote: false
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -19,6 +25,17 @@ class Main extends Component {
 
   selectFolder(idx) {
     this.setState({selectedFolder: this.state.folders[idx]});
+  }
+
+  createNote(note) {
+    console.log('createNote this.props:', this.props);
+    // this.setState({newNote: !this.state.newNote});
+    console.log('createNote note:', note);
+    this.props.mutate({
+      variables: { name: note.name, content: note.content, folderId: note.folderId }
+    }).then(() => {
+      this.props.data.refetch()
+    });
   }
 
   render() {
@@ -37,10 +54,17 @@ class Main extends Component {
               <Folders folders={this.state.folders} selectFolder={this.selectFolder.bind(this)} />
             </div>
 
-            <div className="columns small-10">
+            <div className="columns small-11">
               <strong>{this.state.selectedFolder.name}</strong>
-              <Notes folder={this.state.selectedFolder} />
+              <br/>
+              <button className="button tiny succss" onClick={() => this.setState({newNote: !this.state.newNote})}>Add Note</button>
+
+              <Notes
+                folder={this.state.selectedFolder}
+                newNote={this.state.newNote}
+                createNote={this.createNote.bind(this)} />
             </div>
+
           </div>
         </div>
       </div>
@@ -57,4 +81,4 @@ const folderQuery = gql`
   }
 `;
 
-export default graphql(folderQuery)(Main);
+export default graphql(CreateNote)(graphql(folderQuery)(Main));

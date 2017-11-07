@@ -6,18 +6,19 @@ export default class Note extends Component {
 		super(props);
 
 		this.state = {
-			tasks: (this.props.note ? this.props.note.tasks : ""),
+			content: (this.props.note ? this.props.note.content : ""),
 			edit: false,
 		}
 	}
 
 	componentWillReceiveProps(props) {
-		this.setState({tasks: props.note.tasks});
+		console.log('componentWillReceiveProps props:', props);
+		this.setState({content: props.note.content});
 	}
 
 	componentDidMount() {
 		// Add an event noteener to the document to noteen for the change event outside of React.
-		document.addEventNoteener('change', (e) => {
+		document.addEventListener('change', (e) => {
 			if (e.target.classNote.contains('task-note-item-checkbox')) {
 				// Get the text for the task and if it's checked or not.
 				const taskText = e.target.nextSibling.innerHTML;
@@ -28,11 +29,15 @@ export default class Note extends Component {
 	}
 
 	handleChange(e) {
-		this.setState({tasks: e.target.value});
+		this.setState({content: e.target.value});
 	}
 
-	saveTasks(e) {
-		this.props.updateTask(this.state.tasks);
+	saveNote(e) {
+		// const note = this.props.note;
+		// note.content = this.state.content;
+		// console.log('note:', note);
+
+		this.props.updateNote(this.props.note, this.state.content);
 		this.setState({edit: !this.state.edit});
 	}
 
@@ -41,22 +46,24 @@ export default class Note extends Component {
 			return <h2>No note selected...</h2>;
 		}
 
-		let tasks;
+		console.log('Note render this.props:', this.props);
+
+		let content;
 		if (this.state.edit) {
-			tasks = (
+			content = (
 				<div className="row">
 					<div className="columns small-6">
-						<textarea value={this.state.tasks} onKeyup={this.handleChange.bind(this)} />
-						<button className="button small" onClick={this.saveTasks.bind(this)}>Save Tasks</button>
+						<textarea value={this.state.content} onChange={this.handleChange.bind(this)} />
+						<button className="button small" onClick={this.saveNote.bind(this)}>Save Note</button>
 					</div>
 
 					<div className="columns small-6">
-						<Viewer content={this.state.tasks} />
+						<Viewer content={this.state.content} />
 					</div>
 				</div>
 			);
 		} else {
-			tasks = <Viewer content={this.state.tasks} />;
+			content = <Viewer content={this.state.content} />;
 		}
 
 		return (
@@ -67,11 +74,13 @@ export default class Note extends Component {
 
         <div className="row">
 					<div className="columns small-12">
-						<h3 className="tasks-label">Tasks</h3>
-						<button className="button tiny secondary float-right task-edit" onClick={() => this.setState({edit: !this.state.edit})}>Edit</button>
+						<button
+							className="button tiny secondary float-right task-edit"
+							onClick={() => this.setState({edit: !this.state.edit})}>Edit</button>
+
 						<br/>
 
-						{tasks}
+						{content}
 					</div>
         </div>
 			</div>
