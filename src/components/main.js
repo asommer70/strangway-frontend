@@ -11,6 +11,7 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(props) {
+    console.log('Main componentWillReceiveProps props:', props);
     this.setState({
       folders: props.data.folders,
       selectedFolder: props.data.folders[0]
@@ -39,7 +40,7 @@ class Main extends Component {
 
             <div className="columns small-10">
               <strong>{this.state.selectedFolder.name}</strong>
-              <Notes folder={this.selectedFolder} />
+              <Notes folder={this.state.selectedFolder} />
             </div>
           </div>
         </div>
