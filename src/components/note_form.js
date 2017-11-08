@@ -7,7 +7,7 @@ export default class NoteForm extends Component {
 
     this.state = {
       name: '',
-      content: ''
+      content: '#'
     }
   }
 
@@ -16,11 +16,15 @@ export default class NoteForm extends Component {
     console.log('this.refs:', this.refs);
     const newNote = {
       name: this.refs.name.value,
-      content: this.refs.content.value,
+      content: this.state.content,
       folderId: this.props.folderId
     }
 
     this.props.createNote(newNote);
+  }
+
+  handleChange(e) {
+    this.setState({content: e.target.value});
   }
 
   render() {
@@ -30,7 +34,7 @@ export default class NoteForm extends Component {
           <form onSubmit={this.createNote.bind(this)}>
             <input type="text" name="name" ref="name" placeholder="Name" />
             <br/>
-            <textarea name="content" ref="content" placeholder="Content"></textarea>
+            <textarea name="content" placeholder="Content" onChange={this.handleChange.bind(this)}></textarea>
             <br/>
             <button type="submit" className="button small">Create Note</button>
           </form>
