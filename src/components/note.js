@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import DeleteNote from '../queries/delete_note';
 import Viewer from './viewer';
 
-export default class Note extends Component {
+class Note extends Component {
 	constructor(props) {
 		super(props);
 
@@ -41,11 +43,23 @@ export default class Note extends Component {
 		this.setState({edit: !this.state.edit});
 	}
 
+	deleteNote(noteId) {
+		// this.props.deleteNote(this.props.note);
+		this.props.mutate({variables: {id: noteId}})
+			.then(() => {
+				console.log('this.props:', this.props);
+				// this.props.folderQuery({id: this.props.note.folderId});
+				// this.props.getFolder(this.props.note.folderId);
+				this.props.deleteNote(this.props.note);
+			});
+		this.setState({edit: !this.state.edit});
+	}
+
 	render() {
 		if (!this.props.note) {
 			return <h2>No note selected...</h2>;
 		}
-		
+
 		let content;
 		if (this.state.edit) {
 			content = (
@@ -53,6 +67,9 @@ export default class Note extends Component {
 					<div className="columns small-6">
 						<textarea value={this.state.content} onChange={this.handleChange.bind(this)} />
 						<button className="button small" onClick={this.saveNote.bind(this)}>Save Note</button>
+						<button
+							className="button tiny float-right alert"
+							onClick={() => this.deleteNote(this.props.note.id)}>&#215;</button>
 					</div>
 
 					<div className="columns small-6">
@@ -85,3 +102,6 @@ export default class Note extends Component {
 		);
 	}
 }
+
+
+export default graphql(DeleteNote)(Note);

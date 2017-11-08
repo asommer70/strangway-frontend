@@ -6,6 +6,7 @@ import Folders from './folders';
 import Notes from './notes';
 import Note from './note';
 import CreateNote from '../queries/create_note';
+import DeleteNote from '../queries/delete_note';
 import FolderQuery from '../queries/get_folder';
 
 class Main extends Component {
@@ -18,9 +19,11 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(props) {
+    console.log('Main componentWillReceiveProps props:', props);
     this.setState({
       folders: props.data.folders,
-      selectedFolder: props.data.folders[0]
+      selectedFolder: props.data.folders[0],
+      refetch: props.data.refetch
     });
   }
 
@@ -34,6 +37,15 @@ class Main extends Component {
       refetchQueries: [{query: FolderQuery, variables: { id: note.folderId } }]
     })
     this.setState({newNote: !this.state.newNote});
+  }
+
+  getFolder(folderId) {
+    console.log('Main deleteNote this.props:', this.props);
+    this.props.data.refetch({id: folderId});
+    // this.props.mutate({
+    //   variables: { id: note.id },
+    //   refetchQueries: [{query: FolderQuery, variables: { id: note.folderId } }]
+    // });
   }
 
   render() {
@@ -60,7 +72,8 @@ class Main extends Component {
               <Notes
                 folder={this.state.selectedFolder}
                 newNote={this.state.newNote}
-                createNote={this.createNote.bind(this)} />
+                createNote={this.createNote.bind(this)}
+                getFolder={this.getFolder.bind(this)} />
             </div>
 
           </div>

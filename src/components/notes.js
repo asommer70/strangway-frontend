@@ -34,6 +34,18 @@ class Notes extends Component {
     })
   }
 
+  deleteNote(note) {
+    console.log('Notes deleteNote this.props:', this.props);
+    console.log('Notes deleteNote note:', note);
+    this.setState({selectedNote: this.props.notes[0]});
+    this.props.getFolder(note.folderId);
+    // this.props.mutate({
+    //   variables: {
+    //     id: this.state.selectedNote.id,
+    //   }
+    // })
+  }
+
   render() {
     if (this.props.data.loading) {
       return <div>Loading Notes...</div>;
@@ -45,7 +57,10 @@ class Notes extends Component {
         note = <NoteForm createNote={this.props.createNote} folderId={this.props.folder.id} />
       );
     } else {
-      note = <Note note={this.state.selectedNote} updateNote={this.updateNote.bind(this)}   />
+      note = <Note
+              note={this.state.selectedNote}
+              updateNote={this.updateNote.bind(this)}
+              deleteNote={this.props.getFolder} />
     }
 
     return (
