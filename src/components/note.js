@@ -45,9 +45,7 @@ export default class Note extends Component {
 		if (!this.props.note) {
 			return <h2>No note selected...</h2>;
 		}
-
-		console.log('Note render this.props:', this.props);
-
+		
 		let content;
 		if (this.state.edit) {
 			content = (

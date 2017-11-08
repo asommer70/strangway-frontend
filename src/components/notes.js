@@ -11,7 +11,6 @@ class Notes extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log('notes componentWillReceiveProps props:', props);
     this.setState({
       notes: props.data.folder.notes,
       selectedNote: props.data.folder.notes[0] || {}

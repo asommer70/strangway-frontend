@@ -13,7 +13,6 @@ export default class NoteForm extends Component {
 
   createNote(e) {
     e.preventDefault();
-    console.log('this.refs:', this.refs);
     const newNote = {
       name: this.refs.name.value,
       content: this.state.content,

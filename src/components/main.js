@@ -6,6 +6,7 @@ import Folders from './folders';
 import Notes from './notes';
 import Note from './note';
 import CreateNote from '../queries/create_note';
+import FolderQuery from '../queries/get_folder';
 
 class Main extends Component {
   constructor(props) {
@@ -28,14 +29,11 @@ class Main extends Component {
   }
 
   createNote(note) {
-    console.log('createNote this.props:', this.props);
-    // this.setState({newNote: !this.state.newNote});
-    console.log('createNote note:', note);
     this.props.mutate({
-      variables: { name: note.name, content: note.content, folderId: note.folderId }
-    }).then(() => {
-      this.props.data.refetch()
-    });
+      variables: { name: note.name, content: note.content, folderId: note.folderId },
+      refetchQueries: [{query: FolderQuery, variables: { id: note.folderId } }]
+    })
+    this.setState({newNote: !this.state.newNote});
   }
 
   render() {
