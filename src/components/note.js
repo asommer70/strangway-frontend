@@ -49,9 +49,44 @@ class Note extends Component {
 		});
 	}
 
+	editNote(c) {
+		// console.log('this.refs:', this.refs);
+		// console.log('this:', this);
+		// console.log('this.contentEl:', this.contentEl);
+
+		// console.log('c:', c);
+		// this.contentEl.setAttribute('style', 'height: ' + this.contentEl.scrollHeight + 'px;');
+
+		this.setState({edit: !this.state.edit});
+		// console.log('editNote e.target:', e.target);
+	}
+
+	setHeight(c) {
+		c.setAttribute('style', 'height: ' + c.scrollHeight + 'px;');
+	}
+
 	handleChange(e) {
 		const newState = {};
-		newState[e.target.getAttribute('name')] = e.target.value;
+		const elName = e.target.getAttribute('name');
+		newState[elName] = e.target.value;
+		console.log('handleChange elName:', elName);
+
+		if (elName == 'content') {
+			e.target.setAttribute('style', 'height: ' + e.target.scrollHeight + 'px;');
+			// const str = e.target.value;
+			// const style = e.target.getAttribute('style');
+			// console.log('cols:', cols);
+
+			var linecount = 0;
+			// str.split("\n").forEach((line) => {
+			// 	linecount += Math.ceil( l.length / cols ); // Take into account long lines
+			// });
+			// $A(str.split("\n")).each( function(l) {
+			// 		linecount += Math.ceil( l.length / cols ); // Take into account long lines
+			// })
+			// $('text-area').rows = linecount + 1;
+		}
+
 		this.setState(newState);
 	}
 
@@ -91,7 +126,7 @@ class Note extends Component {
 			content = (
 				<div className="row">
 					<div className="columns small-6">
-						<textarea value={this.state.content} onChange={this.handleChange.bind(this)} name="content" />
+						<textarea ref={(c) => c.setAttribute('style', 'height: ' + c.scrollHeight + 'px;')} value={this.state.content}  onChange={this.handleChange.bind(this)} name="content" />
 						<button className="button small icon-button" onClick={this.saveNote.bind(this)}>&#10003;</button>
 						<button
 							className="button tiny float-right alert icon-button"
@@ -120,7 +155,7 @@ class Note extends Component {
 					<div className="columns small-12">
 						<button
 							className="button tiny secondary float-right note-edit icon-button"
-							onClick={() => this.setState({edit: !this.state.edit})}>&#8496;</button>
+							onClick={this.editNote.bind(this)}>&#8496;</button>
 
 						<br/>
 
