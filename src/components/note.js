@@ -22,12 +22,30 @@ class Note extends Component {
 	componentDidMount() {
 		// Add an event noteener to the document to noteen for the change event outside of React.
 		document.addEventListener('change', (e) => {
-			if (e.target.classNote.contains('task-note-item-checkbox')) {
+			if (e.target.classList.contains('task-list-item-checkbox')) {
 				// Get the text for the task and if it's checked or not.
 				const taskText = e.target.nextSibling.innerHTML;
 				const taskStatus = e.target.checked;
-				this.props.taskStatusChange(taskText, taskStatus);
+				this.updateCheckbox(taskText, taskStatus);
 			}
+		});
+	}
+
+	updateCheckbox(text, status) {
+		let contents = this.state.content.split("\n");
+		contents = contents.map((content) => {
+			if (content.substr(5) == text) {
+				if (status) {
+					content = '* [x]' + content.substr(5);
+				} else {
+					content = '* [ ]' + content.substr(5);
+				}
+			}
+			return content;
+		});
+
+		this.setState({content: contents.join("\n")}, () => {
+			this.saveNote(null, true);
 		});
 	}
 
@@ -37,7 +55,7 @@ class Note extends Component {
 		this.setState(newState);
 	}
 
-	saveNote(e) {
+	saveNote(e, edit) {
 		this.props.UpdateNote({
 			variables: {
 				id: this.props.note.id,
@@ -45,8 +63,11 @@ class Note extends Component {
 				content: this.state.content,
 				folderId: this.props.note.folderId
 			}
-		})
-		this.setState({edit: !this.state.edit});
+		});
+
+		if (!edit) {
+			this.setState({edit: !this.state.edit});
+		}
 	}
 
 	deleteNote(noteId) {
