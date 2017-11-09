@@ -57,7 +57,7 @@ class Main extends Component {
             <div className="columns small-11">
               <strong>{this.state.selectedFolder.name}</strong>
               <br/>
-              <button className="button small succss" onClick={() => this.setState({newNote: !this.state.newNote})}>&#43;</button>
+              <button id="newnote" className="button small succss icon-button" onClick={() => this.setState({newNote: !this.state.newNote})}>&#43;</button>
 
               <Notes
                 folder={this.state.selectedFolder}

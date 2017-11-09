@@ -17,3 +17,26 @@
 .note-title {
   cursor: pointer;
 }
+
+.tiny.icon-button {
+  font-size: 20px;
+  padding: 6px;
+}
+
+.small.icon-button {
+  font-size: 24px;
+  padding: 8px;
+}
+
+#newnote {
+  padding-top: 4px;
+  margin-top: 10px;
+}
+
+#content {
+  height: 300px;
+}
+
+.contains-task-list {
+  list-style: none;
+}

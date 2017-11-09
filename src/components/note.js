@@ -69,9 +69,9 @@ class Note extends Component {
 				<div className="row">
 					<div className="columns small-6">
 						<textarea value={this.state.content} onChange={this.handleChange.bind(this)} name="content" />
-						<button className="button small" onClick={this.saveNote.bind(this)}>&#10003;</button>
+						<button className="button small icon-button" onClick={this.saveNote.bind(this)}>&#10003;</button>
 						<button
-							className="button tiny float-right alert"
+							className="button tiny float-right alert icon-button"
 							onClick={() => this.deleteNote(this.props.note.id)}>&#10007;</button>
 					</div>
 
@@ -96,7 +96,7 @@ class Note extends Component {
         <div className="row">
 					<div className="columns small-12">
 						<button
-							className="button tiny secondary float-right task-edit"
+							className="button tiny secondary float-right note-edit icon-button"
 							onClick={() => this.setState({edit: !this.state.edit})}>&#8496;</button>
 
 						<br/>

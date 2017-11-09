@@ -30,12 +30,13 @@ export default class NoteForm extends Component {
     return (
       <div className="row">
         <div className="columns small-6">
+          <h5>New Note</h5>
           <form onSubmit={this.createNote.bind(this)}>
             <input type="text" name="name" ref="name" placeholder="Name" />
             <br/>
-            <textarea name="content" placeholder="Content" onChange={this.handleChange.bind(this)}></textarea>
+            <textarea name="content" id="content" placeholder="Content" onChange={this.handleChange.bind(this)}></textarea>
             <br/>
-            <button type="submit" className="button small success">&#10003;</button>
+            <button type="submit" className="button small success icon-button">&#10003;</button>
           </form>
         </div>
 
