@@ -44,13 +44,9 @@ class Note extends Component {
 	}
 
 	deleteNote(noteId) {
-		// this.props.deleteNote(this.props.note);
 		this.props.mutate({variables: {id: noteId}})
 			.then(() => {
-				console.log('this.props:', this.props);
-				// this.props.folderQuery({id: this.props.note.folderId});
-				// this.props.getFolder(this.props.note.folderId);
-				this.props.deleteNote(this.props.note);
+				this.props.getFolder(this.props.note.folderId);
 			});
 		this.setState({edit: !this.state.edit});
 	}

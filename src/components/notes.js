@@ -13,7 +13,7 @@ class Notes extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       notes: props.data.folder.notes,
-      selectedNote: props.data.folder.notes[0] || {}
+      selectedNote: props.data.folder.notes[0] || undefined
     });
   }
 
@@ -23,7 +23,7 @@ class Notes extends Component {
 
   updateNote(note, content) {
     console.log('updateNote note:', note, 'content:', content);
-    console.log('this.props:', this.props);
+    console.log('updateNote this.props:', this.props);
     this.props.mutate({
       variables: {
         id: this.state.selectedNote.id,
@@ -34,21 +34,17 @@ class Notes extends Component {
     })
   }
 
-  deleteNote(note) {
-    console.log('Notes deleteNote this.props:', this.props);
-    console.log('Notes deleteNote note:', note);
-    this.setState({selectedNote: this.props.notes[0]});
-    this.props.getFolder(note.folderId);
-    // this.props.mutate({
-    //   variables: {
-    //     id: this.state.selectedNote.id,
-    //   }
-    // })
+  getFolder(folderId) {
+    this.props.data.refetch({id: folderId});
   }
 
   render() {
     if (this.props.data.loading) {
       return <div>Loading Notes...</div>;
+    }
+
+    if (!this.state) {
+      return <div>Nothing selected... yet.</div>
     }
 
     let note;
@@ -60,7 +56,7 @@ class Notes extends Component {
       note = <Note
               note={this.state.selectedNote}
               updateNote={this.updateNote.bind(this)}
-              deleteNote={this.props.getFolder} />
+              getFolder={this.getFolder.bind(this)} />
     }
 
     return (

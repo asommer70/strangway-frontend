@@ -19,7 +19,6 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(props) {
-    console.log('Main componentWillReceiveProps props:', props);
     this.setState({
       folders: props.data.folders,
       selectedFolder: props.data.folders[0],
@@ -37,15 +36,6 @@ class Main extends Component {
       refetchQueries: [{query: FolderQuery, variables: { id: note.folderId } }]
     })
     this.setState({newNote: !this.state.newNote});
-  }
-
-  getFolder(folderId) {
-    console.log('Main deleteNote this.props:', this.props);
-    this.props.data.refetch({id: folderId});
-    // this.props.mutate({
-    //   variables: { id: note.id },
-    //   refetchQueries: [{query: FolderQuery, variables: { id: note.folderId } }]
-    // });
   }
 
   render() {
@@ -67,13 +57,12 @@ class Main extends Component {
             <div className="columns small-11">
               <strong>{this.state.selectedFolder.name}</strong>
               <br/>
-              <button className="button tiny succss" onClick={() => this.setState({newNote: !this.state.newNote})}>Add Note</button>
+              <button className="button small succss" onClick={() => this.setState({newNote: !this.state.newNote})}>&#43;</button>
 
               <Notes
                 folder={this.state.selectedFolder}
                 newNote={this.state.newNote}
-                createNote={this.createNote.bind(this)}
-                getFolder={this.getFolder.bind(this)} />
+                createNote={this.createNote.bind(this)} />
             </div>
 
           </div>
