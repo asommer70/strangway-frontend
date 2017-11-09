@@ -21,19 +21,6 @@ class Notes extends Component {
     this.setState({selectedNote: this.state.notes[idx]});
   }
 
-  updateNote(note, content) {
-    console.log('updateNote note:', note, 'content:', content);
-    console.log('updateNote this.props:', this.props);
-    this.props.mutate({
-      variables: {
-        id: this.state.selectedNote.id,
-        name: this.state.selectedNote.name,
-        content: content,
-        folderId: this.state.selectedNote.folderId
-      }
-    })
-  }
-
   getFolder(folderId) {
     this.props.data.refetch({id: folderId});
   }
@@ -53,10 +40,7 @@ class Notes extends Component {
         note = <NoteForm createNote={this.props.createNote} folderId={this.props.folder.id} />
       );
     } else {
-      note = <Note
-              note={this.state.selectedNote}
-              updateNote={this.updateNote.bind(this)}
-              getFolder={this.getFolder.bind(this)} />
+      note = <Note note={this.state.selectedNote} getFolder={this.getFolder.bind(this)} />
     }
 
     return (

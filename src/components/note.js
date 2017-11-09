@@ -16,7 +16,7 @@ class Note extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		this.setState({content: props.note.content});
+		this.setState({content: props.note.content, name: props.note.name});
 	}
 
 	componentDidMount() {
@@ -63,6 +63,8 @@ class Note extends Component {
 				content: this.state.content,
 				folderId: this.props.note.folderId
 			}
+		}).then(() => {
+			this.props.getFolder(this.props.note.folderId);
 		});
 
 		if (!edit) {
