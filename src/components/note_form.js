@@ -35,7 +35,7 @@ export default class NoteForm extends Component {
             <br/>
             <textarea name="content" placeholder="Content" onChange={this.handleChange.bind(this)}></textarea>
             <br/>
-            <button type="submit" className="button small">Create Note</button>
+            <button type="submit" className="button small success">&#10003;</button>
           </form>
         </div>
 

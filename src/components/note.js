@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import UpdateNote from '../queries/update_note';
 import DeleteNote from '../queries/delete_note';
 import Viewer from './viewer';
 
@@ -8,13 +9,13 @@ class Note extends Component {
 		super(props);
 
 		this.state = {
-			content: (this.props.note ? this.props.note.content : ""),
+			name: (this.props.note ? this.props.note.name : ''),
+			content: (this.props.note ? this.props.note.content : ''),
 			edit: false,
 		}
 	}
 
 	componentWillReceiveProps(props) {
-		console.log('componentWillReceiveProps props:', props);
 		this.setState({content: props.note.content});
 	}
 
@@ -31,20 +32,25 @@ class Note extends Component {
 	}
 
 	handleChange(e) {
-		this.setState({content: e.target.value});
+		const newState = {};
+		newState[e.target.getAttribute('name')] = e.target.value;
+		this.setState(newState);
 	}
 
 	saveNote(e) {
-		// const note = this.props.note;
-		// note.content = this.state.content;
-		// console.log('note:', note);
-
-		this.props.updateNote(this.props.note, this.state.content);
+		this.props.UpdateNote({
+			variables: {
+				id: this.props.note.id,
+				name: this.state.name,
+				content: this.state.content,
+				folderId: this.props.note.folderId
+			}
+		})
 		this.setState({edit: !this.state.edit});
 	}
 
 	deleteNote(noteId) {
-		this.props.mutate({variables: {id: noteId}})
+		this.props.DeleteNote({variables: {id: noteId}})
 			.then(() => {
 				this.props.getFolder(this.props.note.folderId);
 			});
@@ -57,15 +63,16 @@ class Note extends Component {
 		}
 
 		let content;
+		let name;
 		if (this.state.edit) {
 			content = (
 				<div className="row">
 					<div className="columns small-6">
-						<textarea value={this.state.content} onChange={this.handleChange.bind(this)} />
-						<button className="button small" onClick={this.saveNote.bind(this)}>Save Note</button>
+						<textarea value={this.state.content} onChange={this.handleChange.bind(this)} name="content" />
+						<button className="button small" onClick={this.saveNote.bind(this)}>&#10003;</button>
 						<button
 							className="button tiny float-right alert"
-							onClick={() => this.deleteNote(this.props.note.id)}>&#215;</button>
+							onClick={() => this.deleteNote(this.props.note.id)}>&#10007;</button>
 					</div>
 
 					<div className="columns small-6">
@@ -73,13 +80,16 @@ class Note extends Component {
 					</div>
 				</div>
 			);
+
+			name = <input type="text" name="name" onChange={this.handleChange.bind(this)} value={this.state.name} />
 		} else {
 			content = <Viewer content={this.state.content} />;
+			name = <h2>{this.props.note.name}</h2>;
 		}
 
 		return (
 			<div>
-        <h2>{this.props.note.name}</h2>
+				{name}
         <hr/>
         <br/>
 
@@ -87,7 +97,7 @@ class Note extends Component {
 					<div className="columns small-12">
 						<button
 							className="button tiny secondary float-right task-edit"
-							onClick={() => this.setState({edit: !this.state.edit})}>Edit</button>
+							onClick={() => this.setState({edit: !this.state.edit})}>&#8496;</button>
 
 						<br/>
 
@@ -99,5 +109,4 @@ class Note extends Component {
 	}
 }
 
-
-export default graphql(DeleteNote)(Note);
+export default graphql(DeleteNote, {name: 'DeleteNote'})(graphql(UpdateNote, {name: 'UpdateNote'})(Note));
