@@ -40,7 +40,11 @@ class Notes extends Component {
         note = <NoteForm createNote={this.props.createNote} folderId={this.props.folder.id} />
       );
     } else {
-      note = <Note note={this.state.selectedNote} getFolder={this.getFolder.bind(this)} />
+      note = <Note
+                note={this.state.selectedNote}
+                getFolder={this.getFolder.bind(this)}
+                folders={this.props.folders}
+                selectFolder={this.props.selectFolder} />
     }
 
     return (

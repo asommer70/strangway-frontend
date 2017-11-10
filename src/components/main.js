@@ -20,9 +20,8 @@ class Main extends Component {
 
   componentWillReceiveProps(props) {
     this.setState({
-      folders: props.data.folders,
-      selectedFolder: props.data.folders[0],
-      refetch: props.data.refetch
+      folders: props.GetFolders.folders,
+      selectedFolder: props.GetFolders.folders[0],
     });
   }
 
@@ -31,7 +30,7 @@ class Main extends Component {
   }
 
   createNote(note) {
-    this.props.mutate({
+    this.props.CreateNote({
       variables: { name: note.name, content: note.content, folderId: note.folderId },
       refetchQueries: [{query: FolderQuery, variables: { id: note.folderId } }]
     })
@@ -39,7 +38,8 @@ class Main extends Component {
   }
 
   render() {
-    if (this.props.data.loading) {
+    console.log('this.props:', this.props);
+    if (this.props.GetFolders.loading) {
       return <div>Loading Folders...</div>;
     }
 
@@ -62,7 +62,9 @@ class Main extends Component {
               <Notes
                 folder={this.state.selectedFolder}
                 newNote={this.state.newNote}
-                createNote={this.createNote.bind(this)} />
+                createNote={this.createNote.bind(this)}
+                folders={this.props.GetFolders.folders}
+                selectFolder={this.selectFolder.bind(this)} />
             </div>
 
           </div>
@@ -81,4 +83,4 @@ const folderQuery = gql`
   }
 `;
 
-export default graphql(CreateNote)(graphql(folderQuery)(Main));
+export default graphql(CreateNote, {name: 'CreateNote'})(graphql(folderQuery, {name: 'GetFolders'})(Main));

@@ -11,6 +11,7 @@ class Note extends Component {
 		this.state = {
 			name: (this.props.note ? this.props.note.name : ''),
 			content: (this.props.note ? this.props.note.content : ''),
+			folderId: (this.props.note ? this.props.note.folderId : ''),
 			edit: false,
 		}
 	}
@@ -59,8 +60,14 @@ class Note extends Component {
 	handleChange(e) {
 		const newState = {};
 		const elName = e.target.getAttribute('name');
+
+		// Update Note right away if changing folders.
+		if (elName == 'folderId') {
+			const oldFolderId = this.props.note.folderId;
+			console.log('handleChange oldFolderId:', oldFolderId, 'this.state.folderId:', this.state.folderId);
+		}
 		newState[elName] = e.target.value;
-		this.setState(newState);
+		// this.setState(newState);
 	}
 
 	saveNote(e, edit) {
@@ -69,10 +76,19 @@ class Note extends Component {
 				id: this.props.note.id,
 				name: this.state.name,
 				content: this.state.content,
-				folderId: this.props.note.folderId
+				folderId: this.state.folderId
 			}
 		}).then(() => {
-			this.props.getFolder(this.props.note.folderId);
+			const oldFolderId = this.props.note.folderId;
+			console.log('oldFolderId:', oldFolderId, 'this.state.folderId:', this.state.folderId);
+
+			this.props.getFolder(this.state.folderId);
+			this.props.folders.forEach((folder, idx) => {
+				if (this.state.folderId == folder.id) {
+					this.props.getFolder(oldFolderId);
+					this.props.selectFolder(idx);
+				}
+			});
 		});
 
 		if (!edit) {
@@ -92,6 +108,7 @@ class Note extends Component {
 		if (!this.props.note) {
 			return <h2>No note selected...</h2>;
 		}
+		console.log('Note render this.state.folderId:', this.state.folderId);
 
 		let content;
 		let name;
@@ -103,6 +120,16 @@ class Note extends Component {
 							ref={(c) => this.setHeight(c)} value={this.state.content}
 							onChange={this.handleChange.bind(this)}
 							name="content" />
+
+						<select name="folderId" id="folderId" value={this.state.folderId} onChange={this.handleChange.bind(this)}>
+							{
+								this.props.folders.map((folder) => {
+									return <option key={folder.id} value={folder.id}>{folder.name}</option>
+								})
+							}
+						</select>
+
+						<br/>
 						<button className="button small icon-button" onClick={this.saveNote.bind(this)}>&#10003;</button>
 						<button
 							className="button tiny float-right alert icon-button"
@@ -118,7 +145,12 @@ class Note extends Component {
 			name = <input type="text" name="name" onChange={this.handleChange.bind(this)} value={this.state.name} />
 		} else {
 			content = <Viewer content={this.state.content} />;
-			name = <h2>{this.props.note.name}</h2>;
+			name = (
+				<div>
+					<h2 className="note-title">{this.props.note.name}</h2>
+					<div className="note-updatedat float-right">{this.props.note.updatedAt}</div>
+				</div>
+			);
 		}
 
 		return (
