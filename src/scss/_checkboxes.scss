@@ -69,3 +69,11 @@
     text-decoration: line-through;
   }
 }
+
+.task-list-item-checkbox:checked + label:before {
+  background: map-get($foundation-palette, success);
+}
+
+.task-list-item-checkbox:checked + label {
+  text-decoration: line-through;
+}
