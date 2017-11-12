@@ -38,7 +38,7 @@ class Main extends Component {
   }
 
   render() {
-    console.log('this.props:', this.props);
+    // console.log('this.props:', this.props);
     if (this.props.GetFolders.loading) {
       return <div>Loading Folders...</div>;
     }

@@ -63,11 +63,13 @@ class Note extends Component {
 
 		// Update Note right away if changing folders.
 		if (elName == 'folderId') {
-			const oldFolderId = this.props.note.folderId;
-			console.log('handleChange oldFolderId:', oldFolderId, 'this.state.folderId:', this.state.folderId);
+			newState[elName] = e.target.value;
+			newState.oldFolderId = this.props.note.folderId;
+			this.setState(newState, () => {return null;});
+		} else {
+			newState[elName] = e.target.value;
+			this.setState(newState);
 		}
-		newState[elName] = e.target.value;
-		// this.setState(newState);
 	}
 
 	saveNote(e, edit) {
@@ -80,15 +82,27 @@ class Note extends Component {
 			}
 		}).then(() => {
 			const oldFolderId = this.props.note.folderId;
-			console.log('oldFolderId:', oldFolderId, 'this.state.folderId:', this.state.folderId);
+			// console.log('oldFolderId:', oldFolderId, 'this.state.folderId:', this.state.folderId);
+			console.log('Note saveNote this.state:', this.state);
 
+			if (this.state.oldFolderId) {
+				console.log('Note saveNote getFolder this.state.oldFolderId:', this.state.oldFolderId);
+				this.props.getFolder(this.state.oldFolderId);
+			}
+
+			console.log('Note saveNote getFolder this.state.folderId:', this.state.folderId);
 			this.props.getFolder(this.state.folderId);
+
 			this.props.folders.forEach((folder, idx) => {
 				if (this.state.folderId == folder.id) {
-					this.props.getFolder(oldFolderId);
-					this.props.selectFolder(idx);
+					// this.props.getFolder(oldFolderId);
+					setTimeout(this.props.selectFolder(idx), 1500);
+					// this.props.selectFolder(idx);
+					// window.location.reload();
 				}
 			});
+
+
 		});
 
 		if (!edit) {
@@ -121,6 +135,7 @@ class Note extends Component {
 							onChange={this.handleChange.bind(this)}
 							name="content" />
 
+						<label htmlFor="folderId">Folder</label>
 						<select name="folderId" id="folderId" value={this.state.folderId} onChange={this.handleChange.bind(this)}>
 							{
 								this.props.folders.map((folder) => {

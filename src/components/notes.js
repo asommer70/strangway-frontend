@@ -22,7 +22,10 @@ class Notes extends Component {
   }
 
   getFolder(folderId) {
-    this.props.data.refetch({id: folderId});
+    this.props.data.refetch({id: folderId})
+      .then((x) => {
+        console.log('Notes getFolder refetch... x:', x);
+      });
   }
 
   render() {
