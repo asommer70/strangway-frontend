@@ -11,6 +11,7 @@ class Notes extends Component {
   }
 
   componentWillReceiveProps(props) {
+    this.getFolder(props.folder.id);
     this.setState({
       notes: props.data.folder.notes,
       selectedNote: props.data.folder.notes[0] || undefined
@@ -23,8 +24,10 @@ class Notes extends Component {
 
   getFolder(folderId) {
     this.props.data.refetch({id: folderId})
-      .then((x) => {
-        console.log('Notes getFolder refetch... x:', x);
+      .then((data) => {
+        if (data.data === undefined) {
+          this.getFolder(folderId);
+        }
       });
   }
 

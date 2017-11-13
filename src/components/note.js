@@ -81,27 +81,15 @@ class Note extends Component {
 				folderId: this.state.folderId
 			}
 		}).then(() => {
-			const oldFolderId = this.props.note.folderId;
-			// console.log('oldFolderId:', oldFolderId, 'this.state.folderId:', this.state.folderId);
-			console.log('Note saveNote this.state:', this.state);
-
 			if (this.state.oldFolderId) {
-				console.log('Note saveNote getFolder this.state.oldFolderId:', this.state.oldFolderId);
-				this.props.getFolder(this.state.oldFolderId);
+				this.props.getFolder(this.state.folderId);
 			}
-
-			console.log('Note saveNote getFolder this.state.folderId:', this.state.folderId);
-			this.props.getFolder(this.state.folderId);
 
 			this.props.folders.forEach((folder, idx) => {
 				if (this.state.folderId == folder.id) {
-					// this.props.getFolder(oldFolderId);
-					setTimeout(this.props.selectFolder(idx), 1500);
-					// this.props.selectFolder(idx);
-					// window.location.reload();
+					this.props.selectFolder(idx)
 				}
 			});
-
 
 		});
 
@@ -122,7 +110,6 @@ class Note extends Component {
 		if (!this.props.note) {
 			return <h2>No note selected...</h2>;
 		}
-		console.log('Note render this.state.folderId:', this.state.folderId);
 
 		let content;
 		let name;

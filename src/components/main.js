@@ -38,7 +38,6 @@ class Main extends Component {
   }
 
   render() {
-    // console.log('this.props:', this.props);
     if (this.props.GetFolders.loading) {
       return <div>Loading Folders...</div>;
     }
@@ -51,7 +50,7 @@ class Main extends Component {
 
           <div className="row">
             <div className="columns small-1">
-              <Folders folders={this.state.folders} selectFolder={this.selectFolder.bind(this)} />
+              <Folders folders={this.props.GetFolders.folders} selectFolder={this.selectFolder.bind(this)} />
             </div>
 
             <div className="columns small-11">
