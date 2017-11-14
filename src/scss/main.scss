@@ -49,3 +49,22 @@
 .note-updatedat {
   margin-top: 27px;
 }
+
+#new-folder-form {
+  z-index: 30;
+  width: 250px;
+  overflow: scroll;
+  border: 1px solid map-get($foundation-palette, secondary);
+  padding: 8px;
+  background: white;
+
+  input {
+    width: 190px;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  button {
+    margin-top: 20px;
+  }
+}

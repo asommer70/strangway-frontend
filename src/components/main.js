@@ -14,7 +14,9 @@ class Main extends Component {
     super(props);
 
     this.state = {
-      newNote: false
+      newNote: false,
+      newFolder: false,
+      newFolderName: ''
     }
   }
 
@@ -37,9 +39,42 @@ class Main extends Component {
     this.setState({newNote: !this.state.newNote});
   }
 
+  newFolderForm(e) {
+    // $('#element').foundation('open');
+    // () => this.setState({newFolder: !this.state.newFolder})
+    console.log('e:', e);
+    console.log('newFolderForm this.state:', this.state);
+  }
+
+  newFolder(e) {
+    e.preventDefault();
+    console.log('Creating Folder name:', this.state.newFolderName);
+    this.setState({newFolder: !this.state.newFolder, newFolderName: ''});
+  }
+
   render() {
     if (this.props.GetFolders.loading) {
       return <div>Loading Folders...</div>;
+    }
+
+    let newFolderForm;
+    if (this.state.newFolder) {
+      newFolderForm = (
+        <div id="new-folder-form">
+          <form onSubmit={this.newFolder.bind(this)}>
+            <input type="text"
+              name="name"
+              id="name"
+              value={this.state.newFolderName}
+              onChange={(e) => this.setState({newFolderName: e.target.value})}
+              placeholder="Name" />
+
+            <button type="submit" className="button tiny">&#10003;</button>
+          </form>
+        </div>
+      )
+    } else {
+      newFolderForm = '';
     }
 
     return (
@@ -51,12 +86,25 @@ class Main extends Component {
           <div className="row">
             <div className="columns small-1">
               <Folders folders={this.props.GetFolders.folders} selectFolder={this.selectFolder.bind(this)} />
+              <button
+                id="newfolderButton"
+                className="button tiny succss icon-button"
+                onClick={() => this.setState({newFolder: !this.state.newFolder})}>
+                &#43;
+              </button>
+              {newFolderForm}
+
             </div>
 
             <div className="columns small-11">
               <strong>{this.state.selectedFolder.name}</strong>
               <br/>
-              <button id="newnote" className="button small succss icon-button" onClick={() => this.setState({newNote: !this.state.newNote})}>&#43;</button>
+              <button
+                id="newnote"
+                className="button small succss icon-button"
+                onClick={() => this.setState({newNote: !this.state.newNote})}>
+                &#43;
+              </button>
 
               <Notes
                 folder={this.state.selectedFolder}

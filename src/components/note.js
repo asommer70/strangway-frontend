@@ -83,14 +83,13 @@ class Note extends Component {
 		}).then(() => {
 			if (this.state.oldFolderId) {
 				this.props.getFolder(this.state.folderId);
+
+				this.props.folders.forEach((folder, idx) => {
+					if (this.state.folderId == folder.id) {
+						this.props.selectFolder(idx)
+					}
+				});
 			}
-
-			this.props.folders.forEach((folder, idx) => {
-				if (this.state.folderId == folder.id) {
-					this.props.selectFolder(idx)
-				}
-			});
-
 		});
 
 		if (!edit) {
