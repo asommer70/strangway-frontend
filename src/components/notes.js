@@ -8,6 +8,10 @@ import NoteForm from './note_form';
 class Notes extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      selectedIdx: 0
+    }
   }
 
   componentWillReceiveProps(props) {
@@ -19,7 +23,7 @@ class Notes extends Component {
   }
 
   selectNote(idx) {
-    this.setState({selectedNote: this.state.notes[idx]});
+    this.setState({selectedNote: this.state.notes[idx], selectedIdx: idx});
   }
 
   getFolder(folderId) {
@@ -60,8 +64,10 @@ class Notes extends Component {
             {
               this.state.notes.map((note, idx) => {
                 return (
-                  <div key={note.id} className="card note-card">
-                    <div className="card-divider note-title text-center" onClick={() => this.selectNote(idx)}>
+                  <div key={note.id}
+                    className={idx == this.state.selectedIdx ? 'active note-card' : 'note-card'}
+                    onClick={() => this.selectNote(idx)}>
+                    <div className="note-title text-center">
                       <strong>{note.name}</strong>
                     </div>
                   </div>

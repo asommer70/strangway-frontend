@@ -50,6 +50,17 @@
   margin-top: 27px;
 }
 
+.note-card {
+  padding: 20px 5px;
+  border-bottom: 1px dashed map-get($foundation-palette, secondary);
+  cursor: pointer;
+
+  &.active {
+    background-color: map-get($foundation-palette, primary);
+    color: white;
+  }
+}
+
 #folder-form-wrapper {
   z-index: 30;
   width: 250px;
