@@ -8,6 +8,7 @@ import Note from './note';
 import CreateNote from '../queries/create_note';
 import DeleteNote from '../queries/delete_note';
 import FolderQuery from '../queries/get_folder';
+import CreateFolder from '../queries/create_folder';
 
 class Main extends Component {
   constructor(props) {
@@ -39,16 +40,16 @@ class Main extends Component {
     this.setState({newNote: !this.state.newNote});
   }
 
-  newFolderForm(e) {
-    // $('#element').foundation('open');
-    // () => this.setState({newFolder: !this.state.newFolder})
-    console.log('e:', e);
-    console.log('newFolderForm this.state:', this.state);
-  }
-
   newFolder(e) {
     e.preventDefault();
     console.log('Creating Folder name:', this.state.newFolderName);
+    console.log('this.props:', this.props);
+    this.props.CreateFolder({
+      variables: {name: this.state.newFolderName}
+    })
+      .then((data) => {
+        this.props.GetFolders.refetch();
+      });
     this.setState({newFolder: !this.state.newFolder, newFolderName: ''});
   }
 
@@ -130,4 +131,8 @@ const folderQuery = gql`
   }
 `;
 
-export default graphql(CreateNote, {name: 'CreateNote'})(graphql(folderQuery, {name: 'GetFolders'})(Main));
+export default graphql(CreateFolder, {name: 'CreateFolder'})(
+  graphql(CreateNote, {name: 'CreateNote'})(
+    graphql(folderQuery, {name: 'GetFolders'})(Main)
+  )
+);

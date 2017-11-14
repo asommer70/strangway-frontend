@@ -110,6 +110,8 @@ class Note extends Component {
 			return <h2>No note selected...</h2>;
 		}
 
+		console.log('Note render this:', this);
+
 		let content;
 		let name;
 		if (this.state.edit) {

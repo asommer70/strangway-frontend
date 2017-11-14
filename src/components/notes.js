@@ -13,7 +13,7 @@ class Notes extends Component {
   componentWillReceiveProps(props) {
     this.getFolder(props.folder.id);
     this.setState({
-      notes: props.data.folder.notes,
+      notes: props.data.folder.notes || [],
       selectedNote: props.data.folder.notes[0] || undefined
     });
   }
