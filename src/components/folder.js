@@ -40,14 +40,15 @@ class Folder extends Component {
           <input type="text"
             name="name"
             id="name"
+            className="folder-name-edit"
             value={this.state.folderName}
             onChange={this.handleChange.bind(this)} />
 
-          <input type="hidden" name="folderIdx" value={this.props.idx} />
+          <input type="hidden" name="folderIdx" value={this.props.idx}/>
           <br/>
 
-          <button type="submit" className="button tiny">&#10003;</button>
-            <button className="button tiny float-right alert icon-button"
+          <button type="submit" className="button tiny icon-button edit">&#10003;</button>
+            <button className="button tiny float-right alert icon-button edit"
               onClick={() => this.deleteFolder(this.props.folder.id)}>&#10007;</button>
         </form>
       </div>
