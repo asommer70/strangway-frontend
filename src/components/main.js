@@ -6,7 +6,6 @@ import Folders from './folders';
 import Notes from './notes';
 import Note from './note';
 import CreateNote from '../queries/create_note';
-import DeleteNote from '../queries/delete_note';
 import FolderQuery from '../queries/get_folder';
 import CreateFolder from '../queries/create_folder';
 
@@ -42,8 +41,6 @@ class Main extends Component {
 
   newFolder(e) {
     e.preventDefault();
-    console.log('Creating Folder name:', this.state.newFolderName);
-    console.log('this.props:', this.props);
     this.props.CreateFolder({
       variables: {name: this.state.newFolderName}
     })
@@ -61,7 +58,7 @@ class Main extends Component {
     let newFolderForm;
     if (this.state.newFolder) {
       newFolderForm = (
-        <div id="new-folder-form">
+        <div id="folder-form-wrapper">
           <form onSubmit={this.newFolder.bind(this)}>
             <input type="text"
               name="name"

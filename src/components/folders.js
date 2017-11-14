@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
+import Folder from './folder';
 
 export default class Folders extends Component {
+
 	renderFolders() {
 		return this.props.folders.map((folder, idx) => {
-			return <li key={idx} className="folder-name" onClick={() => this.props.selectFolder(idx)}>{folder.name}</li>
+			// <li key={idx}
+			// 	className="folder-name"
+			// 	onClick={() => this.props.selectFolder(idx)}
+			// 	onDoubleClick={() => this.setState({editFolder: !this.state.editFolder})}>
+			// 	{folder.name}
+			// 	{this.state.editFolder ? folderForm : ''}
+			// </li>
+			return (
+				<Folder key={folder.id} folder={folder} selectFolder={this.props.selectFolder} idx={idx} />
+			);
 		});
 	}
 
