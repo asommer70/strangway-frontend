@@ -17,7 +17,9 @@ class Note extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		this.setState({content: props.note.content, name: props.note.name});
+		if (props.note) {
+			this.setState({content: props.note.content, name: props.note.name});
+		}
 	}
 
 	componentDidMount() {

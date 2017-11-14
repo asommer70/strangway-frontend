@@ -5,15 +5,12 @@ export default class Folders extends Component {
 
 	renderFolders() {
 		return this.props.folders.map((folder, idx) => {
-			// <li key={idx}
-			// 	className="folder-name"
-			// 	onClick={() => this.props.selectFolder(idx)}
-			// 	onDoubleClick={() => this.setState({editFolder: !this.state.editFolder})}>
-			// 	{folder.name}
-			// 	{this.state.editFolder ? folderForm : ''}
-			// </li>
 			return (
-				<Folder key={folder.id} folder={folder} selectFolder={this.props.selectFolder} idx={idx} />
+				<Folder key={folder.id}
+					folder={folder}
+					selectFolder={this.props.selectFolder}
+					idx={idx}
+					getFolders={this.props.getFolders} />
 			);
 		});
 	}

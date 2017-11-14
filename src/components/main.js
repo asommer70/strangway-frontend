@@ -83,7 +83,10 @@ class Main extends Component {
 
           <div className="row">
             <div className="columns small-1">
-              <Folders folders={this.props.GetFolders.folders} selectFolder={this.selectFolder.bind(this)} />
+              <Folders
+                folders={this.props.GetFolders.folders}
+                selectFolder={this.selectFolder.bind(this)}
+                getFolders={this.props.GetFolders} />
               <button
                 id="newfolderButton"
                 className="button tiny succss icon-button"

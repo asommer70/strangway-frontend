@@ -8,19 +8,30 @@ class Folder extends Component {
 		super(props);
 
 		this.state = {
-			folderName: '',
+			folderName: (this.props.folder ? this.props.folder.name : ''),
 			editFolder: false
 		}
 	}
 
 	deleteFolder(folderId) {
-		console.log('Folders deleteFolder folderId:', folderId);
+    this.props.DeleteFolder({variables: {id: folderId}})
+      .then(() => {
+        this.props.getFolders.refetch();
+      });
 	}
 
 	editFolder(e) {
 		e.preventDefault();
-		console.log('Folders editFolder e:', e);
+    this.props.UpdateFolder({variables: {id: this.props.folder.id, name: this.state.folderName}})
+      .then(() => {
+        this.props.getFolders.refetch();
+      });
+    this.setState({editFolder: !this.state.editFolder});
 	}
+
+  handleChange(e) {
+    this.setState({folderName: e.target.value});
+  }
 
   render() {
     const folderForm = (
@@ -29,9 +40,8 @@ class Folder extends Component {
           <input type="text"
             name="name"
             id="name"
-            value={this.state.newFolderName}
-            onChange={(e) => this.setState({folderName: e.target.value})}
-            value={this.props.folder.name} />
+            value={this.state.folderName}
+            onChange={this.handleChange.bind(this)} />
 
           <input type="hidden" name="folderIdx" value={this.props.idx} />
           <br/>
