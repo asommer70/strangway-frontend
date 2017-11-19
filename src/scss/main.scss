@@ -56,11 +56,8 @@
   cursor: pointer;
 
   &.active {
-    // background-color: map-get($foundation-palette, primary);
-    // text-decoration: underline;
-    // color: white;
     .note-title {
-      border-bottom: 1px solid map-get($foundation-palette, primary);
+      border-bottom: 2px solid map-get($foundation-palette, primary);
     }
   }
 }
