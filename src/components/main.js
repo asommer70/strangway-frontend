@@ -8,6 +8,7 @@ import Note from './note';
 import CreateNote from '../queries/create_note';
 import FolderQuery from '../queries/get_folder';
 import CreateFolder from '../queries/create_folder';
+import CurrentUser from '../queries/current_user';
 
 class Main extends Component {
   constructor(props) {
@@ -23,7 +24,8 @@ class Main extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       folders: props.GetFolders.folders,
-      selectedFolder: props.GetFolders.folders[0],
+      selectedFolder: (props.GetFolders.folders ? props.GetFolders.folders[0] : []),
+      user: props.CurrentUser.user
     });
   }
 
@@ -131,8 +133,14 @@ const folderQuery = gql`
   }
 `;
 
-export default graphql(CreateFolder, {name: 'CreateFolder'})(
+export default graphql(CurrentUser, {name: 'CurrentUser'})(graphql(CreateFolder, {name: 'CreateFolder'})(
   graphql(CreateNote, {name: 'CreateNote'})(
     graphql(folderQuery, {name: 'GetFolders'})(Main)
   )
-);
+));
+
+// export default graphql(CreateFolder, {name: 'CreateFolder'})(
+//   graphql(CreateNote, {name: 'CreateNote'})(
+//     graphql(folderQuery, {name: 'GetFolders'})(Main)
+//   )
+// );

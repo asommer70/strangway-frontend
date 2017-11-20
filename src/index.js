@@ -17,7 +17,7 @@ import Signout from './components/signout';
 import Login from './components/login';
 
 const client = new ApolloClient({
-  link: new HttpLink({uri: 'http://localhost:4000/graphql'}),
+  link: new HttpLink({uri: 'http://localhost:4000/graphql', credentials: 'include'}),
   cache: new InMemoryCache({
     dataIdFromObject: o => o.id
   })
