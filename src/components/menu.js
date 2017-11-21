@@ -43,6 +43,7 @@ class Menu extends Component {
           <li><a href="/">Notes</a></li>
         </ul>
         {actionLinks}
+        <hr className="menu-hr" />
 
         <div className="row">
           <div className="columns small-12">

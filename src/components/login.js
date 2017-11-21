@@ -8,7 +8,8 @@ class Login extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      errors: []
     }
   }
 
@@ -19,10 +20,26 @@ class Login extends Component {
         username: this.state.username,
         password: this.state.password
       }
-    }).then(() => { window.location.href = '/' });
+    }).then(() => { window.location.href = '/' })
+    .catch((res) => {
+      console.log('Login.login() res.graphQLErrors[0].message:', res.graphQLErrors[0].message);
+      this.setState({errors: res.graphQLErrors.map((err) => err.message)});
+    })
   }
 
   render() {
+    let flash;
+    if (this.state.errors.length > 0) {
+      flash = (
+        <div class="callout alert">
+          <h5>Sorry, there was a problem:</h5>
+          <p>{this.state.errors[0]}</p>
+        </div>
+      );
+    } else {
+      flash = <div></div>;
+    }
+
     return (
       <div className="row">
         <div className="columns small-12">
@@ -53,6 +70,8 @@ class Login extends Component {
 
                   <div className="grid-x grid-padding-x">
                     <div className="medium-12 cell">
+                      {flash}
+
                       <input type="submit" className="button small"/>
                     </div>
                   </div>
