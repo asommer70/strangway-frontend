@@ -3,6 +3,11 @@
 @import 'includes';
 @import 'checkboxes';
 
+fieldset {
+  border: solid 1px map-get($foundation-palette, secondary);
+  padding: 10px;
+}
+
 .menu {
   display: inline-flex;
 }

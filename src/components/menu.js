@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Logout from '../queries/logout';
+// import Login from '../queries/login';
 import CurrentUser from '../queries/current_user';
 
 class Menu extends Component {
@@ -14,8 +15,7 @@ class Menu extends Component {
   }
 
   render() {
-    console.log('Menu render this.props:', this.props);
-    if (this.props.loading) {
+    if (this.props.CurrentUser.loading) {
       return <div />;
     }
 
@@ -35,6 +35,8 @@ class Menu extends Component {
       );
     }
 
+    const loginRedirect = <Redirect to={ { pathname: '/login', state: { from: this.props.location }} } />
+
     return (
       <div>
         <ul className="menu">
@@ -45,7 +47,7 @@ class Menu extends Component {
 
         <div className="row">
           <div className="columns small-12">
-              {this.props.children}
+              {!this.props.CurrentUser.loading && this.props.CurrentUser.user != null ? this.props.children : loginRedirect}
             </div>
         </div>
       </div>
