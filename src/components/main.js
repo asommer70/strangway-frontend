@@ -133,11 +133,13 @@ const folderQuery = gql`
   }
 `;
 
-export default graphql(CurrentUser, {name: 'CurrentUser'})(graphql(CreateFolder, {name: 'CreateFolder'})(
-  graphql(CreateNote, {name: 'CreateNote'})(
-    graphql(folderQuery, {name: 'GetFolders'})(Main)
+export default graphql(CurrentUser, {name: 'CurrentUser'})(
+  graphql(CreateFolder, {name: 'CreateFolder'})(
+    graphql(CreateNote, {name: 'CreateNote'})(
+      graphql(folderQuery, {name: 'GetFolders'})(Main)
+    )
   )
-));
+);
 
 // export default graphql(CreateFolder, {name: 'CreateFolder'})(
 //   graphql(CreateNote, {name: 'CreateNote'})(
