@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Link, Redirect } from 'react-router-dom';
 import Logout from '../queries/logout';
-// import Login from '../queries/login';
 import CurrentUser from '../queries/current_user';
 
 class Menu extends Component {
