@@ -3,6 +3,11 @@
 @import 'includes';
 @import 'checkboxes';
 
+// #588C73 - Green
+// #F2E394 - Yellow
+// #F2AE72 - Orange
+// #D96459 - Red
+
 fieldset {
   border: solid 1px map-get($foundation-palette, secondary);
   padding: 10px;
