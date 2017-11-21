@@ -8,7 +8,6 @@ import Note from './note';
 import CreateNote from '../queries/create_note';
 import FolderQuery from '../queries/get_folder';
 import CreateFolder from '../queries/create_folder';
-import CurrentUser from '../queries/current_user';
 
 class Main extends Component {
   constructor(props) {
@@ -25,7 +24,7 @@ class Main extends Component {
     this.setState({
       folders: props.GetFolders.folders,
       selectedFolder: (props.GetFolders.folders ? props.GetFolders.folders[0] : []),
-      user: props.CurrentUser.user
+      // user: props.CurrentUser.user
     });
   }
 
@@ -78,48 +77,43 @@ class Main extends Component {
     }
 
     return (
-      <div className="row">
-        <div className="columns small-12">
-
-          <Menu />
-
-          <div className="row">
-            <div className="columns small-1">
-              <Folders
-                folders={this.props.GetFolders.folders}
-                selectFolder={this.selectFolder.bind(this)}
-                getFolders={this.props.GetFolders} />
-              <button
-                id="newfolderButton"
-                className="button tiny succss icon-button"
-                onClick={() => this.setState({newFolder: !this.state.newFolder})}>
-                &#43;
-              </button>
-              {newFolderForm}
-
-            </div>
-
-            <div className="columns small-11">
-              <strong>{this.state.selectedFolder.name}</strong>
-              <br/>
-              <button
-                id="newnote"
-                className="button small succss icon-button"
-                onClick={() => this.setState({newNote: !this.state.newNote})}>
-                &#43;
-              </button>
-
-              <Notes
-                folder={this.state.selectedFolder}
-                newNote={this.state.newNote}
-                createNote={this.createNote.bind(this)}
-                folders={this.props.GetFolders.folders}
-                selectFolder={this.selectFolder.bind(this)} />
-            </div>
+      <Menu>
+        <div className="row">
+          <div className="columns small-1">
+            <Folders
+              folders={this.props.GetFolders.folders}
+              selectFolder={this.selectFolder.bind(this)}
+              getFolders={this.props.GetFolders} />
+            <button
+              id="newfolderButton"
+              className="button tiny succss icon-button"
+              onClick={() => this.setState({newFolder: !this.state.newFolder})}>
+              &#43;
+            </button>
+            {newFolderForm}
 
           </div>
+
+          <div className="columns small-11">
+            <strong>{this.state.selectedFolder.name}</strong>
+            <br/>
+            <button
+              id="newnote"
+              className="button small succss icon-button"
+              onClick={() => this.setState({newNote: !this.state.newNote})}>
+              &#43;
+            </button>
+
+            <Notes
+              folder={this.state.selectedFolder}
+              newNote={this.state.newNote}
+              createNote={this.createNote.bind(this)}
+              folders={this.props.GetFolders.folders}
+              selectFolder={this.selectFolder.bind(this)} />
+          </div>
+
         </div>
-      </div>
+      </Menu>
     );
   }
 }
@@ -133,16 +127,17 @@ const folderQuery = gql`
   }
 `;
 
-export default graphql(CurrentUser, {name: 'CurrentUser'})(
-  graphql(CreateFolder, {name: 'CreateFolder'})(
-    graphql(CreateNote, {name: 'CreateNote'})(
-      graphql(folderQuery, {name: 'GetFolders'})(Main)
-    )
+export default graphql(CreateFolder, {name: 'CreateFolder'})(
+  graphql(CreateNote, {name: 'CreateNote'})(
+    graphql(folderQuery, {name: 'GetFolders'})(Main)
   )
 );
 
-// export default graphql(CreateFolder, {name: 'CreateFolder'})(
-//   graphql(CreateNote, {name: 'CreateNote'})(
-//     graphql(folderQuery, {name: 'GetFolders'})(Main)
+
+// export default graphql(CurrentUser, {name: 'CurrentUser'})(
+//   graphql(CreateFolder, {name: 'CreateFolder'})(
+//     graphql(CreateNote, {name: 'CreateNote'})(
+//       graphql(folderQuery, {name: 'GetFolders'})(Main)
+//     )
 //   )
 // );

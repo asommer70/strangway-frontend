@@ -22,11 +22,6 @@ const client = new ApolloClient({
 
 class App extends Component {
   render() {
-    // <ApolloProvider client={client}>
-    //   <div id="app" className="container">
-    //     <Main />
-    //   </div>
-    // </ApolloProvider>
     return (
       <ApolloProvider client={client}>
         <BrowserRouter>

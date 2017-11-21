@@ -3,6 +3,10 @@
 @import 'includes';
 @import 'checkboxes';
 
+.menu {
+  display: inline-flex;
+}
+
 .folder-name {
   cursor: pointer;
 }
