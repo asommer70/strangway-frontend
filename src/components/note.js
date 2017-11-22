@@ -18,7 +18,7 @@ class Note extends Component {
 
 	componentWillReceiveProps(props) {
 		if (props.note) {
-			this.setState({content: props.note.content, name: props.note.name});
+			this.setState({content: props.note.content, name: props.note.name, folderId: props.note.folderId});
 		}
 	}
 
