@@ -14,10 +14,12 @@ class Folder extends Component {
 	}
 
 	deleteFolder(folderId) {
-    this.props.DeleteFolder({variables: {id: folderId}})
-      .then(() => {
-        this.props.getFolders.refetch();
-      });
+    if (window.confirm(`Delete ${this.state.folderName}?`)) {
+      this.props.DeleteFolder({variables: {id: folderId}})
+        .then(() => {
+          this.props.getFolders.refetch();
+        });
+    }
 	}
 
 	editFolder(e) {

@@ -100,11 +100,13 @@ class Note extends Component {
 	}
 
 	deleteNote(noteId) {
-		this.props.DeleteNote({variables: {id: noteId}})
-			.then(() => {
-				this.props.getFolder(this.props.note.folderId);
-			});
-		this.setState({edit: !this.state.edit});
+		if (window.confirm(`Delete ${this.state.name}?`)) {
+			this.props.DeleteNote({variables: {id: noteId}})
+				.then(() => {
+					this.props.getFolder(this.props.note.folderId);
+				});
+			this.setState({edit: !this.state.edit});
+		}
 	}
 
 	render() {
