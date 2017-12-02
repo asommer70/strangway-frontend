@@ -14,6 +14,8 @@ class Folder extends Component {
 	}
 
 	deleteFolder(folderId) {
+    console.log('Folder.deleteFolder folderId:', folderId);
+
     if (window.confirm(`Delete ${this.state.folderName}?`)) {
       this.props.DeleteFolder({variables: {id: folderId}})
         .then(() => {
@@ -50,8 +52,8 @@ class Folder extends Component {
           <br/>
 
           <button type="submit" className="button tiny icon-button edit">&#10003;</button>
-            <button className="button tiny float-right alert icon-button edit"
-              onClick={() => this.deleteFolder(this.props.folder.id)}>&#10007;</button>
+          <button className="button tiny float-right alert icon-button edit"
+            onClick={() => this.deleteFolder(this.props.folder.id)}>&#10007;</button>
         </form>
       </div>
     );
