@@ -16,9 +16,23 @@ class Notes extends Component {
 
   componentWillReceiveProps(props) {
     this.getFolder(props.folder.id);
+    
+    let notes;
+    let selectedNote;
+    if (!props.data.folder) {
+      notes = [];
+      selectedNote = undefined;
+    } else if (!props.data.folder.notes) {
+      notes = [];
+      selectedNote = undefined;
+    } else {
+      notes = props.data.folder.notes;
+      selectedNote = props.data.folder.notes[0];
+    }
+
     this.setState({
-      notes: props.data.folder.notes || [],
-      selectedNote: (props.data.folder.notes ? props.data.folder.notes[0] : undefined)
+      notes,
+      selectedNote
     });
   }
 

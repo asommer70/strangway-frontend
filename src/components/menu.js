@@ -34,8 +34,6 @@ class Menu extends Component {
       );
     }
 
-    const loginRedirect = <Redirect to={ { pathname: '/login', state: { from: this.props.location }} } />
-
     return (
       <div>
         <ul className="menu">
@@ -47,8 +45,8 @@ class Menu extends Component {
 
         <div className="row">
           <div className="columns small-12">
-              {!this.props.CurrentUser.loading && this.props.CurrentUser.user != null ? this.props.children : loginRedirect}
-            </div>
+            {this.props.children}
+          </div>
         </div>
       </div>
     );

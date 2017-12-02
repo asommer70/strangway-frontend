@@ -12,6 +12,7 @@ import Main from './components/main';
 import Signup from './components/signup';
 import Logout from './components/logout';
 import Login from './components/login';
+import RequireAuth from './components/require_auth';
 
 const client = new ApolloClient({
   link: new HttpLink({uri: 'http://localhost:4000/graphql', credentials: 'include'}),
@@ -26,7 +27,7 @@ class App extends Component {
       <ApolloProvider client={client}>
         <BrowserRouter>
           <div id="app" className="container">
-            <Route exact path="/" component={Main} />
+            <Route exact path="/" component={RequireAuth(Main)} />
             <Route path="/signup" component={Signup} />
             <Route path="/login" component={Login} />
             <Route path="/logout" component={Logout} />
