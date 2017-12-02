@@ -21,8 +21,6 @@ if (process.env.NODE_ENV == 'dev') {
   url = 'https://strangway.thehoick.com/graphql';
 }
 
-console.log('index.js url:', url, 'process.env.NODE_ENV:', process.env.NODE_ENV);
-
 const client = new ApolloClient({
   link: new HttpLink({uri: url, credentials: 'include'}),
   cache: new InMemoryCache({

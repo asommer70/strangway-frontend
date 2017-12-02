@@ -23,8 +23,7 @@ class Main extends Component {
   componentWillReceiveProps(props) {
     this.setState({
       folders: props.GetFolders.folders,
-      selectedFolder: (props.GetFolders.folders ? props.GetFolders.folders[0] : []),
-      // user: props.CurrentUser.user
+      selectedFolder: (props.GetFolders.folders ? props.GetFolders.folders[0] : undefined),
     });
   }
 
