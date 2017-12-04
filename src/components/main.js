@@ -98,7 +98,7 @@ class Main extends Component {
           </div>
 
           <div className="columns small-11">
-            <strong>{this.state.selectedFolder.name}</strong>
+            <strong>{this.state.selectedFolder ? this.state.selectedFolder.name : 'Notes'}</strong>
             <br/>
             <button
               id="newnote"
