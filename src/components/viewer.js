@@ -14,7 +14,7 @@ export default class Viewer extends Component {
     }
 
     return(
-      <div dangerouslySetInnerHTML={{__html: rawHtml}} />
+      <div className="note-viewer" dangerouslySetInnerHTML={{__html: rawHtml}} />
     )
   }
 }
