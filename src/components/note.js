@@ -32,6 +32,22 @@ class Note extends Component {
 				this.updateCheckbox(taskText, taskStatus);
 			}
 		});
+
+		// Setup some shortcut keys.
+		window.onkeydown = (e) => {
+			// Change to edit mode with Command+e.
+			if (e.metaKey && e.keyCode == 69) {
+				e.preventDefault();
+				this.setState({edit: !this.state.edit});
+			}
+
+			// Save Note with Command+s.
+			if (e.metaKey && e.keyCode == 83) {
+				e.preventDefault();
+				this.saveNote(null, true);
+				this.setState({edit: !this.state.edit});
+			}
+		}
 	}
 
 	updateCheckbox(text, status) {
