@@ -16,7 +16,7 @@ class Notes extends Component {
 
   componentWillReceiveProps(props) {
     this.getFolder(props.folder.id);
-    
+
     let notes;
     let selectedNote;
     if (!props.data.folder) {

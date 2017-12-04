@@ -21,6 +21,10 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(props) {
+    if (!props.GetFolders.loading && !props.GetFolders.folders) {
+      this.props.history.push('/login');
+    }
+
     this.setState({
       folders: props.GetFolders.folders,
       selectedFolder: (props.GetFolders.folders ? props.GetFolders.folders[0] : undefined),
