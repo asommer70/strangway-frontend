@@ -4,7 +4,7 @@ import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import MainScss from './scss/main.scss';
 
@@ -34,10 +34,13 @@ class App extends Component {
       <ApolloProvider client={client}>
         <BrowserRouter>
           <div id="app" className="container">
-            <Route exact path="/" component={RequireAuth(Main)} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/login" component={Login} />
-            <Route path="/logout" component={Logout} />
+            <Switch>
+              <Route exact path="/" component={RequireAuth(Main)} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/login" component={Login} />
+              <Route path="/logout" component={Logout} />
+              <Redirect to="/" />
+            </Switch>
           </div>
         </BrowserRouter>
       </ApolloProvider>
