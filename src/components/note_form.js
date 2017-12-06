@@ -13,6 +13,16 @@ export default class NoteForm extends Component {
     }
   }
 
+  componentDidMount() {
+    window.onkeydown = (e) => {
+      // Save new Note with Command+s.
+      if (e.metaKey && e.keyCode == 83) {
+        e.preventDefault();
+        this.createNote(e);
+      }
+    }
+  }
+
   createNote(e) {
     e.preventDefault();
     const newNote = {
