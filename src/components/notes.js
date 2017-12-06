@@ -61,7 +61,7 @@ class Notes extends Component {
     let note;
     if (this.props.newNote) {
       note = (
-        note = <NoteForm createNote={this.props.createNote} folderId={this.props.folder.id} />
+        note = <NoteForm createNote={this.props.createNote} folderId={this.props.folder.id} setNewNote={this.props.setNewNote} />
       );
     } else {
       note = <Note
@@ -69,7 +69,8 @@ class Notes extends Component {
                 getFolder={this.getFolder.bind(this)}
                 folders={this.props.folders}
                 selectFolder={this.props.selectFolder}
-                history={this.props.history} />
+                history={this.props.history}
+                setNewNote={this.props.setNewNote} />
     }
 
     return (

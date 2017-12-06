@@ -128,7 +128,8 @@ class Main extends Component {
               createNote={this.createNote.bind(this)}
               folders={this.props.GetFolders.folders}
               selectFolder={this.selectFolder.bind(this)}
-              history={this.props.history} />
+              history={this.props.history}
+              setNewNote={() => {this.setState({newNote: !this.state.newNote})}} />
           </div>
 
         </div>

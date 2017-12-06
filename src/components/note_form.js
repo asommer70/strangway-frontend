@@ -20,6 +20,12 @@ export default class NoteForm extends Component {
         e.preventDefault();
         this.createNote(e);
       }
+
+      // Toggle new Note with Ctrl+n.
+      if (e.ctrlKey && e.keyCode == 78) {
+        e.preventDefault();
+        this.props.setNewNote();
+      }
     }
   }
 

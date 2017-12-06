@@ -65,6 +65,12 @@ class Note extends Component {
 				this.saveNote(null, true);
 				this.setState({edit: !this.state.edit});
 			}
+
+			// Toggle new Note with Ctrl+n.
+			if (e.ctrlKey && e.keyCode == 78) {
+			  e.preventDefault();
+				this.props.setNewNote();
+			}
 		}
 	}
 
