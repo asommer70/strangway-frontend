@@ -8,11 +8,29 @@ class Note extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			name: (this.props.note ? this.props.note.name : ''),
-			content: (this.props.note ? this.props.note.content : ''),
-			folderId: (this.props.note ? this.props.note.folderId : ''),
-			edit: false,
+		const failedUpdate = JSON.parse(localStorage.getItem('failedUpdate'));
+
+		if (this.props.note) {
+			this.state = {
+				name: this.props.note.name,
+				content: this.props.note.content,
+				folderId: this.props.note.folderId,
+				edit: false,
+			}
+		} else if (failedUpdate) {
+			this.state = {
+				name: failedUpdate.name,
+				content: failedUpdate.content,
+				folderId: failedUpdate.folderId,
+				edit: true,
+			}
+		} else {
+			this.state = {
+				name: '',
+				content: '',
+				folderId: '',
+				edit: false,
+			}
 		}
 	}
 
@@ -100,7 +118,16 @@ class Note extends Component {
 			}
 		}).then((res) => {
 			if (!res.data.editNote) {
+				const failedUpdate = {
+					id: this.props.note.id,
+					name: this.state.name,
+					content: this.state.content,
+					folderId: this.state.folderId
+				}
+				localStorage.setItem('failedUpdate', JSON.stringify(failedUpdate));
 				this.props.history.push('/login', [{err: {message: 'Note not updated.'}}]);
+			} else {
+				localStorage.removeItem('failedUpdate');
 			}
 
 			if (this.state.oldFolderId) {

@@ -41,7 +41,14 @@ class Main extends Component {
       refetchQueries: [{query: FolderQuery, variables: { id: note.folderId } }]
     })
     .then((res) => {
+      const failedNote = JSON.parse(localStorage.getItem('failedNote'));
+      if (failedNote) {
+        localStorage.removeItem('failedNote');
+      }
+
       if (!res.data.addNote) {
+        const failedNote = { name: note.name, content: note.content, folderId: note.folderId };
+        localStorage.setItem('failedNote', JSON.stringify(failedNote));
         this.props.history.push('/login', [{err: {message: 'Note not created.'}}]);
       }
     })

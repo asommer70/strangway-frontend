@@ -5,16 +5,18 @@ export default class NoteForm extends Component {
   constructor(props) {
     super(props);
 
+    const failedNote = JSON.parse(localStorage.getItem('failedNote'));
+
     this.state = {
-      name: '',
-      content: '#'
+      name: (failedNote ? failedNote.name : ''),
+      content: (failedNote ? failedNote.content: '#')
     }
   }
 
   createNote(e) {
     e.preventDefault();
     const newNote = {
-      name: this.refs.name.value,
+      name: this.state.name,
       content: this.state.content,
       folderId: this.props.folderId
     }
@@ -23,8 +25,12 @@ export default class NoteForm extends Component {
   }
 
   handleChange(e) {
-    this.setState({content: e.target.value});
-  }
+		const newState = {};
+		const elName = e.target.getAttribute('name');
+
+		newState[elName] = e.target.value;
+		this.setState(newState);
+	}
 
   render() {
     return (
@@ -32,9 +38,9 @@ export default class NoteForm extends Component {
         <div className="columns small-6">
           <h5>New Note</h5>
           <form onSubmit={this.createNote.bind(this)}>
-            <input type="text" name="name" ref="name" placeholder="Name" />
+            <input type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.handleChange.bind(this)} />
             <br/>
-            <textarea name="content" id="content" placeholder="Content" onChange={this.handleChange.bind(this)}></textarea>
+            <textarea name="content" id="content" placeholder="Content" value={this.state.content} onChange={this.handleChange.bind(this)}></textarea>
             <br/>
             <button type="submit" className="button small success icon-button">&#10003;</button>
           </form>
