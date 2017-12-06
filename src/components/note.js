@@ -200,7 +200,7 @@ class Note extends Component {
 				</div>
 			);
 
-			name = <input type="text" name="name" onChange={this.handleChange.bind(this)} value={this.state.name} />
+			name = <input type="text" name="name" className="note-name" onChange={this.handleChange.bind(this)} value={this.state.name} />
 		} else {
 			content = <Viewer content={this.state.content} />;
 			name = (
@@ -212,7 +212,7 @@ class Note extends Component {
 		}
 
 		return (
-			<div>
+			<div className={this.state.edit ? "note-and-viewer" : ""}>
 				{name}
         <hr/>
         <br/>

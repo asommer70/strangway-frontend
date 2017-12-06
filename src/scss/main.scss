@@ -120,3 +120,19 @@ fieldset {
     font-size: 1.3375rem;
   }
 }
+
+.note-and-viewer {
+  z-index: 99;
+  position: absolute;
+  top: 8%;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+}
+
+.note-name {
+  max-width: 50%;
+}
