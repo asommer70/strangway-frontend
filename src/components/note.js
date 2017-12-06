@@ -98,7 +98,11 @@ class Note extends Component {
 				content: this.state.content,
 				folderId: this.state.folderId
 			}
-		}).then(() => {
+		}).then((res) => {
+			if (!res.data.editNote) {
+				this.props.history.push('/login', [{err: {message: 'Note not updated.'}}]);
+			}
+
 			if (this.state.oldFolderId) {
 				this.props.getFolder(this.state.folderId);
 

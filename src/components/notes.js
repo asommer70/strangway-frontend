@@ -68,7 +68,8 @@ class Notes extends Component {
                 note={this.state.selectedNote}
                 getFolder={this.getFolder.bind(this)}
                 folders={this.props.folders}
-                selectFolder={this.props.selectFolder} />
+                selectFolder={this.props.selectFolder}
+                history={this.props.history} />
     }
 
     return (

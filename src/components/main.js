@@ -40,6 +40,14 @@ class Main extends Component {
       variables: { name: note.name, content: note.content, folderId: note.folderId },
       refetchQueries: [{query: FolderQuery, variables: { id: note.folderId } }]
     })
+    .then((res) => {
+      if (!res.data.addNote) {
+        this.props.history.push('/login', [{err: {message: 'Note not created.'}}]);
+      }
+    })
+    .catch((err) => {
+      console.log('Main createNote err:', err);
+    });
     this.setState({newNote: !this.state.newNote});
   }
 
@@ -112,7 +120,8 @@ class Main extends Component {
               newNote={this.state.newNote}
               createNote={this.createNote.bind(this)}
               folders={this.props.GetFolders.folders}
-              selectFolder={this.selectFolder.bind(this)} />
+              selectFolder={this.selectFolder.bind(this)}
+              history={this.props.history} />
           </div>
 
         </div>

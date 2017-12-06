@@ -22,7 +22,7 @@ class Login extends Component {
       }
     }).then(() => { window.location.href = '/' })
     .catch((res) => {
-      console.log('Login.login() res.graphQLErrors[0].message:', res.graphQLErrors[0].message);
+      console.log('Login.login() res:', res);
       this.setState({errors: res.graphQLErrors.map((err) => err.message)});
     })
   }
@@ -36,6 +36,15 @@ class Login extends Component {
           <p>{this.state.errors[0]}</p>
         </div>
       );
+    } else if (this.props.location.state) {
+      flash = this.props.location.state.map((entry, idx) => {
+        return (
+          <div key={idx} className="callout alert">
+            <h5>Sorry, there was a problem:</h5>
+            <p>{entry.err.message}</p>
+          </div>
+        );
+      });
     } else {
       flash = <div></div>;
     }
