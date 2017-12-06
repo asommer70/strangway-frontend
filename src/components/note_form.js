@@ -50,11 +50,11 @@ export default class NoteForm extends Component {
 
   render() {
     return (
-      <div className="row">
+      <div className="row note-and-viewer">
         <div className="columns small-6">
           <h5>New Note</h5>
           <form onSubmit={this.createNote.bind(this)}>
-            <input type="text" name="name" placeholder="Name" value={this.state.name} onChange={this.handleChange.bind(this)} />
+            <input type="text" name="name" className="note-name" placeholder="Name" value={this.state.name} onChange={this.handleChange.bind(this)} />
             <br/>
             <textarea name="content" id="content" placeholder="Content" value={this.state.content} onChange={this.handleChange.bind(this)}></textarea>
             <br/>
