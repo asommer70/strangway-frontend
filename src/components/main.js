@@ -97,7 +97,7 @@ class Main extends Component {
     return (
       <Menu>
         <div className="row">
-          <div className="columns small-1">
+          <div className="columns small-2 large-1">
             <Folders
               folders={this.props.GetFolders.folders}
               selectFolder={this.selectFolder.bind(this)}
@@ -112,7 +112,7 @@ class Main extends Component {
 
           </div>
 
-          <div className="columns small-11">
+          <div className="columns small-10">
             <strong>{this.state.selectedFolder ? this.state.selectedFolder.name : 'Notes'}</strong>
             <br/>
             <button

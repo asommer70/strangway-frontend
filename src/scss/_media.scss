@@ -1,0 +1,13 @@
+@media (max-width: 400px) {
+  div.note-card, .note-title {
+    font-size: 14px;
+    width: 40px;
+    text-align: left;
+    word-wrap: break-word;
+
+    strong {
+      text-overflow: ellipsis;
+      width: 40px;
+    }
+  }
+}

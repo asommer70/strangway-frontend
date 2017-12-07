@@ -75,7 +75,7 @@ class Notes extends Component {
 
     return (
       <div className="row">
-        <div className="columns small-2">
+        <div className="columns small-2 notes-list">
           <div className="notes-list">
             {
               this.state.notes.map((note, idx) => {
