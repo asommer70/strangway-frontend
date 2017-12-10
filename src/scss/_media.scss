@@ -1,7 +1,7 @@
 @media (max-width: 400px) {
   div.note-card, .note-title {
     font-size: 14px;
-    width: 50px;
+    width: 60px;
     text-align: left;
     word-wrap: break-word;
 
@@ -11,14 +11,22 @@
     }
   }
 
-  .notes-list {
+  .small-2 {
+    max-width: 26%;
+  }
+
+  .small-10 {
+    max-width: 100%;
+    margin-left: 10px;
+  }
+
+  div.columns.small-2.notes-list {
     left: 0;
-    // top: 30;
     position: absolute;
-    height: 300px;
+    height: 400px;
     overflow-x: scroll;
-    margin-top: 90px;
-    width: 50px;
+    margin-top: 70px !important;
+    // padding-left: 10px;
   }
 
   .folders-list {
