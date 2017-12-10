@@ -228,6 +228,7 @@ class Note extends Component {
 						{content}
 					</div>
         </div>
+				<br/><br/>
 			</div>
 		);
 	}
