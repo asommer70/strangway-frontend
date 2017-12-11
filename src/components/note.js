@@ -175,9 +175,11 @@ class Note extends Component {
 				localStorage.setItem(this.props.note.id, JSON.stringify(cursor));
 			} else {
 				cursor = JSON.parse(localStorage.getItem(this.props.note.id));
-				const content = document.getElementById('content');
-				content.focus();
- 				content.setSelectionRange(cursor.cursor, cursor.cursor);
+				if (cursor) {
+					const content = document.getElementById('content');
+					content.focus();
+					content.setSelectionRange(cursor.cursor, cursor.cursor);
+				}
 			}
 		});
 	}
