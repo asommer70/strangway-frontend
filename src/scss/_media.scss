@@ -20,13 +20,12 @@
     margin-left: 10px;
   }
 
-  div.columns.small-2.notes-list {
+  .notes-list {
     left: 0;
     position: absolute;
     height: 400px;
     overflow-x: scroll;
     margin-top: 70px !important;
-    // padding-left: 10px;
   }
 
   .folders-list {
@@ -35,5 +34,15 @@
     padding-bottom: 30px;
     border-bottom: 1px solid map-get($foundation-palette, secondary);
     overflow-x: scroll;
+  }
+
+  .note-form {
+    max-width: 100%;
+    flex: 0 0 100%;
+    background: white;
+  }
+
+  .note-viewer {
+    // display: none;
   }
 }

@@ -172,7 +172,7 @@ class Note extends Component {
 		if (this.state.edit) {
 			content = (
 				<div className="row">
-					<div className="columns small-6">
+					<div className="columns small-6 note-form">
 						<textarea
 							ref={(c) => this.setHeight(c)} value={this.state.content}
 							onChange={this.handleChange.bind(this)}

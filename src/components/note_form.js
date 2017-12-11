@@ -51,7 +51,7 @@ export default class NoteForm extends Component {
   render() {
     return (
       <div className="row note-and-viewer">
-        <div className="columns small-6">
+        <div className="columns small-6 note-form">
           <h5>New Note</h5>
           <form onSubmit={this.createNote.bind(this)}>
             <input type="text" name="name" className="note-name" placeholder="Name" value={this.state.name} onChange={this.handleChange.bind(this)} />
@@ -62,7 +62,7 @@ export default class NoteForm extends Component {
           </form>
         </div>
 
-        <div className="columns small-6">
+        <div className="columns small-6 note-viewer">
           <Viewer content={this.state.content} />
         </div>
       </div>
