@@ -56,14 +56,16 @@ class Note extends Component {
 			// Change to edit mode with Command+e.
 			if (e.metaKey && e.keyCode == 69) {
 				e.preventDefault();
-				this.setState({edit: !this.state.edit});
+				// this.setState({edit: !this.state.edit});
+				this.editNote();
 			}
 
 			// Save Note with Command+s.
 			if (e.metaKey && e.keyCode == 83) {
 				e.preventDefault();
 				this.saveNote(null, true);
-				this.setState({edit: !this.state.edit});
+				// this.setState({edit: !this.state.edit});
+				this.editNote();
 			}
 
 			// Toggle new Note with Ctrl+n.
@@ -162,6 +164,24 @@ class Note extends Component {
 		}
 	}
 
+	editNote(e) {
+		let cursor;
+		if (this.state.edit) {
+			cursor = {cursor: document.getElementById('content').selectionStart};
+		}
+
+		this.setState({edit: !this.state.edit}, () => {
+			if (!this.state.edit) {
+				localStorage.setItem(this.props.note.id, JSON.stringify(cursor));
+			} else {
+				cursor = JSON.parse(localStorage.getItem(this.props.note.id));
+				const content = document.getElementById('content');
+				content.focus();
+ 				content.setSelectionRange(cursor.cursor, cursor.cursor);
+			}
+		});
+	}
+
 	render() {
 		if (!this.props.note) {
 			return <h2>No note selected...</h2>;
@@ -176,7 +196,7 @@ class Note extends Component {
 						<textarea
 							ref={(c) => this.setHeight(c)} value={this.state.content}
 							onChange={this.handleChange.bind(this)}
-							name="content" />
+							name="content" id="content" />
 
 						<label htmlFor="folderId">Folder</label>
 						<select name="folderId" id="folderId" value={this.state.folderId} onChange={this.handleChange.bind(this)}>
@@ -221,7 +241,7 @@ class Note extends Component {
 					<div className="columns small-12">
 						<button
 							className="button tiny secondary float-right note-edit icon-button"
-							onClick={() => this.setState({edit: !this.state.edit})}>&#8496;</button>
+							onClick={this.editNote.bind(this)}>&#8496;</button>
 
 						<br/>
 
