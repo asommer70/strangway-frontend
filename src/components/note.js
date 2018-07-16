@@ -54,14 +54,14 @@ class Note extends Component {
 		// Setup some shortcut keys.
 		window.onkeydown = (e) => {
 			// Change to edit mode with Command+e.
-			if (e.metaKey && e.keyCode == 69) {
+			if (e.metaKey && e.keyCode == 69 || e.ctrlKey && e.keyCode == 69) {
 				e.preventDefault();
 				// this.setState({edit: !this.state.edit});
 				this.editNote();
 			}
 
 			// Save Note with Command+s.
-			if (e.metaKey && e.keyCode == 83) {
+			if (e.metaKey && e.keyCode == 83 || e.ctrlKey && e.keyCode == 83) {
 				e.preventDefault();
 				this.saveNote(null, true);
 				// this.setState({edit: !this.state.edit});
